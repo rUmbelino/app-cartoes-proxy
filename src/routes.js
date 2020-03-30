@@ -6,10 +6,7 @@ module.exports = app => {
   app.get("*", (req, res) => res.send("created by @rumbelino"));
 
   app.post("*", async (req, res) => {
-    res.send("hello world");
-    /*
     const { originalUrl, body } = req;
-    debugger;
 
     const { headers } = req;
     delete headers.host;
@@ -34,6 +31,5 @@ module.exports = app => {
       console.log(chalk.red(error, originalUrl));
       res.status(status).send(statusText);
     }
-    */
   });
 };
