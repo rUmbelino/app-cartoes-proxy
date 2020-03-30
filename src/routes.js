@@ -26,13 +26,16 @@ module.exports = app => {
         const JSESSIONID = cookie[0].split(";")[0].split("=")[1];
         res.cookie("JSESSIONID", JSESSIONID, {
           maxAge: 900000,
-          httpOnly: true
+          sameSite: "none",
+          httpOnly: true,
+          secure: true
         });
       }
 
       console.log(chalk.blue("success ", url));
       res.send(response.data);
     } catch (error) {
+      console.log(error);
       const { status, statusText } = error.response;
       console.log(chalk.red(error, originalUrl));
       res.status(status).send(statusText);
