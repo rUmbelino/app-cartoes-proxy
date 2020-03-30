@@ -7,6 +7,7 @@ module.exports = app => {
 
   app.post("*", async (req, res) => {
     const { originalUrl, body } = req;
+    debugger
 
     try {
       const url = BACKEND_URI.concat(originalUrl);
@@ -17,6 +18,7 @@ module.exports = app => {
         headers: {
           "Content-Type": "application/json; charset=utf-8",
           Cookie: req.headers.cookie || "",
+          Cookies: req.headers.cookie || "",
           appSession: req.headers.cookie || ""
         }
       });
@@ -26,9 +28,7 @@ module.exports = app => {
         const JSESSIONID = cookie[0].split(";")[0].split("=")[1];
         res.cookie("JSESSIONID", JSESSIONID, {
           maxAge: 900000,
-          sameSite: "none",
           httpOnly: true,
-          secure: true
         });
       }
 
