@@ -7,35 +7,27 @@ module.exports = app => {
 
   app.post("*", async (req, res) => {
     const { originalUrl, body } = req;
-    debugger
+    debugger;
+
+    const { headers } = req;
+    delete headers.host;
 
     try {
       const url = BACKEND_URI.concat(originalUrl);
       const response = await axios({
         url,
+        headers,
         data: body,
-        method: "post",
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-          Cookie: req.headers.cookie || "",
-          Cookies: req.headers.cookie || "",
-          appSession: req.headers.cookie || ""
-        }
+        method: "post"
       });
 
-      const cookie = response.headers["set-cookie"];
-      if (cookie) {
-        const JSESSIONID = cookie[0].split(";")[0].split("=")[1];
-        res.cookie("JSESSIONID", JSESSIONID, {
-          maxAge: 900000,
-          httpOnly: true,
-        });
-      }
+      Object.entries(response.headers).forEach(([key, value]) => {
+        res.setHeader(key, value);
+      });
 
       console.log(chalk.blue("success ", url));
       res.send(response.data);
     } catch (error) {
-      console.log(error);
       const { status, statusText } = error.response;
       console.log(chalk.red(error, originalUrl));
       res.status(status).send(statusText);
