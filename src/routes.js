@@ -25,9 +25,15 @@ module.exports = app => {
       });
 
       console.log(chalk.blue("success ", url));
-      res.send(response.data);
+
+      const { data } = response;
+      res.send(isNaN(data) ? data : `${data}`);
     } catch (error) {
-      const { status, statusText } = error.response;
+      console.log(error);
+      const {
+        response = { status: 500, statusText: error.toString() }
+      } = error;
+      const { status, statusText } = response;
       console.log(chalk.red(error, originalUrl));
       res.status(status).send(statusText);
     }
