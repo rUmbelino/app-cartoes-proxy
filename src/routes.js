@@ -2,7 +2,7 @@ const axios = require("axios");
 const chalk = require("chalk");
 const { BACKEND_URI } = process.env;
 
-module.exports = app => {
+module.exports = (app) => {
   app.get("*", (req, res) => res.send("created by @rumbelino"));
 
   app.post("*", async (req, res) => {
@@ -17,7 +17,7 @@ module.exports = app => {
         url,
         headers,
         data: body,
-        method: "post"
+        method: "post",
       });
 
       Object.entries(response.headers).forEach(([key, value]) => {
@@ -31,7 +31,7 @@ module.exports = app => {
     } catch (error) {
       console.log(error);
       const {
-        response = { status: 500, statusText: error.toString() }
+        response = { status: 500, statusText: error.toString() },
       } = error;
       const { status, statusText } = response;
       console.log(chalk.red(error, originalUrl));
