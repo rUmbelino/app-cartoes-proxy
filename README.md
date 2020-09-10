@@ -1,5 +1,8 @@
-# Instação #
-Crie uma cópia do arquivo .env.exemple e renomeie-o para .env, neste arquivo são setadas as configuraçãoes de url de quais ambientes estão sendo usadas.
-Instale o projeto com 'npm install' e rode-o com 'npm start'
+Bradesco Cartões proxy to avoid same origin policy error on authentication
 
-vlw, flw
+# Instalation #
+  - Download the project from github
+  - Create a copy of the .env.exemple and rename-it for .env 
+    - On this file you can set the configurations of wich endpoint will be used
+  - Install the dependencies with `npm install`
+  - Run it with `npm start`
